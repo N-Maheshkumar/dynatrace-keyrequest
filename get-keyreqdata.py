@@ -121,7 +121,7 @@ def merge(df_extracted,service_df):
 
     # Splits(explodes)column containing lists into separate rows for each element in list
     merged_df = merged_df.explode("List_value").reset_index(drop=True) # Splits(explodes)column containing lists into separate rows for each element in list
-    merged_df.to_excel("main_df.xlsx")
+    merged_df.to_excel("KeyReqData.xlsx")
     print("==== >>> Excel Exported ...!...")
     print("********..D..O..N..E..*********")
     
