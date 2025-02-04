@@ -1,4 +1,4 @@
-# dynatrace-keyrequest
+# Fetch Dynatrace KeyRequests with respective service ID, Name and ManagementZone
 
 # Initial steps:
  1. Enter valid token with scope
