@@ -1,12 +1,13 @@
 # dynatrace-keyrequest
 
-## Initial step:
+# Initial steps:
  1. Enter valid token with scope
  2. Replace Dynatrace URI{your-environment-domain-id} to you environemt domain and id
  3. RUN the python file in a machine where python installed and connectivity available to dynatrace cluster.
  4. Key Request Data Exported as Excel file.
 
-# 1. GET/settings/objectsLists persisted settings objects
+## Detailed steps and algorithm explained below
+### 1. GET/settings/objectsLists persisted settings objects
 Setting-KeyReq-API: Parameter (schema id, field [obj, value, scope]
 
   url ="https://{your-environment-domain-id}/api/v2/settings/objects?schemaIds=builtin%3Asettings.subscriptions.service&fields=objectId%2Cvalue%2Cscope&pageSize=500" 
@@ -14,14 +15,14 @@ Setting-KeyReq-API: Parameter (schema id, field [obj, value, scope]
 Setting-KeyReq-API_response = requests.get(url, headers=headers, verify=False)
 
 
-# 2. Setting-KeyReq-NPK-API : Parameter (nextpagekey)
+### 2. Setting-KeyReq-NPK-API : Parameter (nextpagekey)
 
  url = "https://{your-environment-domain-id}/api/v2/settings/objects?nextPageKey=DynamicValue-****" 
 
 Setting-KeyReq-NPK-API_response = requests.get(url, headers=headers, verify=False)
 
 
-# 3. GET/entities  Gets the information about monitored entities
+### 3. GET/entities  Gets the information about monitored entities
 Entities-Service-API: Praameter(time=now-365d,field =type(SERVICE)
 
 url = https://{your-environment-domain-id}/api/v2/entities?entitySelector=type%28SERVICE%29&from=now-365
@@ -29,7 +30,7 @@ url = https://{your-environment-domain-id}/api/v2/entities?entitySelector=type%2
 Entities-Service-API_response = requests.get(url, headers=headers, verify=False)
 
 
-# 4. GET/entities/{entityId} Gets the properties of the specified monitored entity
+### 4. GET/entities/{entityId} Gets the properties of the specified monitored entity
 EntityID-Service-API: Parameters( fileds –properties,mgmtzone, serviceId- It is a dynamic filter)
 
  url =  "https://{your-environment-domain-id}/api/v2/entities/DynamicValueSERVICE-*****?fields=properties%2CmanagementZones" 
@@ -37,7 +38,7 @@ EntityID-Service-API: Parameters( fileds –properties,mgmtzone, serviceId- It i
 EntityID-Service-API_response = requests.get(url, headers=headers, verify=False)
 
 
-# Algorithm / Steps:
+## Algorithm / Steps:
 
     1. First  Setting-KeyReq-API
     2. Check whether the O/P contains nextPagekey or not.
